@@ -5,16 +5,12 @@ const server = express()
 server.set('view engine', 'ejs')
 server.use(express.static('public')) //pasta que ficarão arquivos utilizados apenas no front
 
-server.get('/:name/:lang', (req, res) => {
-    const name = req.params.name
-    const lang = req.params.lang
-    let msg = false
+server.get('/', (req, res) => {
+    res.render('index') //renderiza arquivos html
+})
 
-    res.render('index', {
-        name: name,
-        lang: lang,
-        msg: msg
-    }) //renderiza arquivos html
+server.get('/perguntar', (req, res) => {
+    res.render('perguntar')
 })
 
 server.listen(3000, (error) => {
