@@ -1,0 +1,23 @@
+{
+  "name": "guia-perguntas",
+  "version": "1.0.0",
+  "description": "Plataforma de perguntas e respostas em um estilo já bem conhecido na internet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoVictorSou/guia-perguntas-node.git"
+  },
+  "author": "João Victor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoaoVictorSou/guia-perguntas-node/issues"
+  },
+  "homepage": "https://github.com/JoaoVictorSou/guia-perguntas-node#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
