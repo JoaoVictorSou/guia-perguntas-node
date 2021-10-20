@@ -1,9 +1,12 @@
 const express = require('express')
 const server = express()
+const bodyParser = require('body-parser')
 
 //express usando o EJS como renderizador de HTML
 server.set('view engine', 'ejs')
 server.use(express.static('public')) //pasta que ficarão arquivos utilizados apenas no front
+server.use(bodyParser.urlencoded({ extended: false })) //vai organizar dados de formulário em uma estrutura para o javascript
+server.use(bodyParser.json())
 
 server.get('/', (req, res) => {
     res.render('index') //renderiza arquivos html
@@ -11,6 +14,13 @@ server.get('/', (req, res) => {
 
 server.get('/perguntar', (req, res) => {
     res.render('perguntar')
+})
+
+server.post('/salvarpergunta', (req, res) => {
+    const titulo = req.body.titulo
+    const pergunta = req.body.pergunta
+
+    res.send(`<h3>Título:</h3> ${titulo} <br /><h3>Pergunta:</h3>${pergunta}`)
 })
 
 server.listen(3000, (error) => {
