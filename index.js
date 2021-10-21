@@ -1,7 +1,18 @@
 const express = require('express')
-const server = express()
 const bodyParser = require('body-parser')
+const connection = require('./db/database')
+const perguntaModel = require('./db/Pergunta')
 
+connection
+    .authenticate()
+    .then(() => {
+        console.log('conexão feita')
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+const server = express()
 //express usando o EJS como renderizador de HTML
 server.set('view engine', 'ejs')
 server.use(express.static('public')) //pasta que ficarão arquivos utilizados apenas no front
