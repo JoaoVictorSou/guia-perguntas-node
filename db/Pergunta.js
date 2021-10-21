@@ -16,3 +16,5 @@ Pergunta
     .sync({force: false})
     .then(() => { console.log('tabela pergunta: criada com sucesso') })
     .catch((error) => { console.log(`tabela pergunta: erro ${error}`) })
+
+module.exports = Pergunta

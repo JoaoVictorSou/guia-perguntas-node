@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const connection = require('./db/database')
-const perguntaModel = require('./db/Pergunta')
+const Pergunta = require('./db/Pergunta')
 
 connection
     .authenticate()
@@ -31,7 +31,14 @@ server.post('/salvarpergunta', (req, res) => {
     const titulo = req.body.titulo
     const pergunta = req.body.pergunta
 
-    res.send(`<h3>Título:</h3> ${titulo} <br /><h3>Pergunta:</h3>${pergunta}`)
+    Pergunta
+        .create({
+            titulo: titulo,
+            descricao: pergunta
+        })
+        .then(() => {
+            res.redirect('/')
+        })
 })
 
 server.listen(3000, (error) => {
