@@ -1,7 +1,21 @@
 <%- include('partials/head') %>
 <body>
     <%- include('partials/navbar') %>
-    
+        <div class="container">
+            <h1 class="pt-4 pb-2">Perguntas</h1>
+            <a href="/perguntar" class="btn btn-primary mb-4">Perguntar</a>
+            <% perguntas.forEach(element => { %>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="card-title h3"><%= element.titulo %> </div>
+                        <div class="card-text p"><%= element.descricao %></div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary">Responder</button>
+                    </div>
+                </div>
+            <% }); %>
+        </div> 
     <%- include('partials/footer') %>
 </body>
 </html>

@@ -20,7 +20,13 @@ server.use(bodyParser.urlencoded({ extended: false })) //vai organizar dados de 
 server.use(bodyParser.json())
 
 server.get('/', (req, res) => {
-    res.render('index') //renderiza arquivos html
+    Pergunta
+        .findAll({ raw: true, order: [
+            ['id', 'DESC'] //ASC
+        ]} )
+        .then((perguntas) => {
+            res.render('index', {perguntas: perguntas})
+        })
 })
 
 server.get('/perguntar', (req, res) => {
@@ -39,6 +45,26 @@ server.post('/salvarpergunta', (req, res) => {
         .then(() => {
             res.redirect('/')
         })
+        .catch((error) => {
+            console.log(`erro ao salvar pergunta: ${error}`)
+        })
+})
+
+server.get('/pergunta/:id', (req, res) => {
+    const id = req.params.id
+    
+    Pergunta
+        .findOne( {
+            where: {id: id}
+        })
+        .then((pergunta) => {
+            if (pergunta) {
+                res.render('pergunta', pergunta)
+            } else {
+                res.redirect('/')
+            }
+        })
+
 })
 
 server.listen(3000, (error) => {
