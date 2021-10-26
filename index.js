@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const connection = require('./db/database')
 const Pergunta = require('./db/Pergunta')
+const Resposta = require('./db/Resposta')
 
 connection
     .authenticate()
@@ -46,7 +47,7 @@ server.post('/salvarpergunta', (req, res) => {
             res.redirect('/')
         })
         .catch((error) => {
-            console.log(`erro ao salvar pergunta: ${error}`)
+            console.log(`erro ao salvar PERGUNTA: ${error}`)
         })
 })
 
@@ -59,12 +60,31 @@ server.get('/pergunta/:id', (req, res) => {
         })
         .then((pergunta) => {
             if (pergunta) {
-                res.render('pergunta', pergunta)
+                res.render('pergunta', {
+                    pergunta: pergunta
+                })
             } else {
                 res.redirect('/')
             }
         })
 
+})
+
+server.post('/responder', (req, res) => {
+    const corpo = req.body.corpo
+    const perguntaId = req.body.perguntaId
+
+    Resposta
+        .create({
+            corpo: corpo,
+            perguntaId: perguntaId
+        })
+        .then(() => {
+            res.redirect(`/pergunta/${perguntaId}`)
+        })
+        .catch((error) => {
+            console.log(`erro ao salvar RESPOSTA: ${error}`)
+        })
 })
 
 server.listen(3000, (error) => {
