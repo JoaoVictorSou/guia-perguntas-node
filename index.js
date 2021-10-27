@@ -40,14 +40,15 @@ server.post('/salvarpergunta', (req, res) => {
 
     Pergunta
         .create({
-            titulo: titulo,
-            descricao: pergunta
+            titulo: titulo || null,
+            descricao: pergunta || null
         })
         .then(() => {
             res.redirect('/')
         })
         .catch((error) => {
             console.log(`erro ao salvar PERGUNTA: ${error}`)
+            res.redirect('/')
         })
 })
 
@@ -88,7 +89,7 @@ server.post('/responder', (req, res) => {
 
     Resposta
         .create({
-            corpo: corpo,
+            corpo: corpo || null,
             perguntaId: perguntaId
         })
         .then(() => {
@@ -96,6 +97,7 @@ server.post('/responder', (req, res) => {
         })
         .catch((error) => {
             console.log(`erro ao salvar RESPOSTA: ${error}`)
+            res.redirect(`/pergunta/${perguntaId}`)
         })
 })
 
