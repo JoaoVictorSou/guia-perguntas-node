@@ -60,14 +60,26 @@ server.get('/pergunta/:id', (req, res) => {
         })
         .then((pergunta) => {
             if (pergunta) {
-                res.render('pergunta', {
-                    pergunta: pergunta
-                })
+                Resposta
+                    .findAll( {
+                        raw: true, 
+                        order: [
+                            ['id', 'DESC']
+                        ],
+                        where: {
+                            perguntaId: id
+                        }
+                    })
+                    .then((respostas) => {
+                        res.render('pergunta', {
+                            pergunta: pergunta,
+                            respostas: respostas
+                        })
+                    })
             } else {
                 res.redirect('/')
             }
         })
-
 })
 
 server.post('/responder', (req, res) => {
